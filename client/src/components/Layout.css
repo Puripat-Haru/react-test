@@ -1,0 +1,10 @@
+.layout {
+    display: flex;
+  }
+  
+  .content {
+    margin-left: 250px; /* เว้นที่ให้แถบด้านข้าง */
+    padding: 20px;
+    width: calc(100% - 250px); /* ลดขนาดเนื้อหาตามความกว้างของแถบด้านข้าง */
+  }
+  
