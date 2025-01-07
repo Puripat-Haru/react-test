@@ -1,12 +1,11 @@
 import React from 'react';
-import Navbars from './Navbars'; // import Sidebar ที่สร้างไว้
-import './Layout.css';
+import Side_Work_office from './Side-Work-office';
 
 const Layout = ({ children }) => {
   return (
-    <div className="layout">
-      <Navbars />
-      <div className="content">
+    <div className="flex">
+      <Side_Work_office />
+      <div className="ml-[250px] w-[calc(100%-250px)]">
         {children}
       </div>
     </div>
