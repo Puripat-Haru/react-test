@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { User2, X } from 'lucide-react';
+import pooh from '../assets/pooh.jpg';
+import Side_Work_office from './Side-Work-office';
 
 const CandidateModal = ({ isOpen, onClose, candidate }) => {
   const modalRef = useRef(null);
@@ -60,7 +62,7 @@ const CandidateModal = ({ isOpen, onClose, candidate }) => {
                   </div>
                   <div className="flex items-center gap-2">
                     <input type="checkbox" checked readOnly />
-                    <span>สำเนาหลักสูตรการฝึกอบร</span>
+                    <span>สำเนาหน้าสมุดธนาคารกสิกร</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <input type="checkbox" />
@@ -136,7 +138,7 @@ const CandidateModal = ({ isOpen, onClose, candidate }) => {
             </div>
 
             <div className="w-24">
-              <img src="/api/placeholder/96/120" alt="User" className="w-full border" />
+              <img src={pooh} alt="User" className="w-full border" />
             </div>
           </div>
         </div>
@@ -180,7 +182,9 @@ const InterviewBoard = () => {
   ];
 
   return (
-
+    <div className="flex">
+      <Side_Work_office />
+      <div className="ml-[250px] w-[calc(100%-250px)]">
     <div className="bg-[#b4b2af] p-8 min-h-screen flex flex-col">
       <div className="flex justify-end">
         <div className="bg-gray-600 text-white px-4 py-1 rounded-full text-sm mr-4">
@@ -262,6 +266,8 @@ const InterviewBoard = () => {
           candidate={selectedCandidate}
         />
       </div>
+    </div>
+    </div>
     </div>
   );
 };
