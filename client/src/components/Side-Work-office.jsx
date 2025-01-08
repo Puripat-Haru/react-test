@@ -39,7 +39,7 @@ const Sidebar = () => {
       </nav>
 
       <div className="bg-red-600">
-        <button className="w-full py-2 px-4 text-white">
+        <button className="w-full py-2 px-4 text-white hover:bg-[#7d9d9c] transition-colors duration-300">
           Logout
         </button>
       </div>
