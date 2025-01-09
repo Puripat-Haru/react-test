@@ -1,16 +1,15 @@
 // rafce
 import React from 'react'
-// import Navbars from './components/Navbars'
-import Hero from './pages/Hero'
-// import Layout from './components/Layout'
+import JobApp from './pages/JobApp'
+import { BrowserRouter } from 'react-router-dom';
+import { Sidebar } from 'lucide-react';
 
 const App = () => {
   return (
-    <div>
-      
-        <Hero/>
-      
-    </div>
+    <BrowserRouter>
+    <Sidebar />
+    <JobApp />
+    </BrowserRouter>
   )
 }
 
