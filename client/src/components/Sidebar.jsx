@@ -70,6 +70,10 @@ const Sidebar = () => {
     navigate(path);
   };
 
+  const handleLogout = () => {
+    navigate('/LoginPage');
+  }
+
   return (
     <div className="h-screen w-64 fixed top-0 left-0 bg-[#e4dccf] shadow-md flex flex-col">
       <div className="px-4 py-2 bg-[#e4dccf]">
@@ -114,7 +118,9 @@ const Sidebar = () => {
       </nav>
 
       <div className="bg-red-600">
-        <button className="w-full py-2 px-4 text-white hover:bg-[#7d9d9c] transition-colors duration-300">
+        <button
+        onClick={handleLogout}
+        className="w-full py-2 px-4 text-white hover:bg-[#7d9d9c] transition-colors duration-300">
           Logout
         </button>
       </div>
