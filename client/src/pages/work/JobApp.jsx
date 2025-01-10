@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { User2, X } from 'lucide-react';
-import pooh from '../assets/pooh.jpg';
-import Side_Work_office from '../components/Side-Work-office';
-import { BrowserRouter } from 'react-router-dom';
+import pooh from '../../assets/pooh.jpg';
+import Sidebar from '../../components/Sidebar';
+
 
 const CandidateModal = ({ isOpen, onClose, candidate }) => {
   const modalRef = useRef(null);
@@ -148,7 +148,8 @@ const CandidateModal = ({ isOpen, onClose, candidate }) => {
   );
 };
 
-const InterviewBoard = () => {
+const JobApp = () => {
+  
   const [activeTab, setActiveTab] = useState('สมัครงาน');
   const [selectedCandidate, setSelectedCandidate] = useState(null);
 
@@ -193,13 +194,13 @@ const InterviewBoard = () => {
   ];
 
   return (
-    <BrowserRouter>
-    <div className="flex">
-      <Side_Work_office />
-      <div className="ml-[250px] w-[calc(100%-250px)]">
-        <div className="bg-[#b4b2af] p-8 min-h-screen flex flex-col">
+    
+    <div className="flex h-screen bg-[#b4b2af]">
+      <Sidebar />
+      <div className="flex-1 ml-64">
+        <div className="p-8 h-full flex flex-col">
           <div className="flex justify-end">
-            <div className="bg-gray-600 text-white px-4 py-1 rounded-full text-sm mr-4">
+            <div className="bg-gray-600 text-white px-4 py-1 rounded-full text-sm">
               Firstname Lastname
             </div>
           </div>
@@ -281,8 +282,8 @@ const InterviewBoard = () => {
         </div>
       </div>
     </div>
-    </BrowserRouter>
+    
   );
 };
 
-export default InterviewBoard;
+export default JobApp;

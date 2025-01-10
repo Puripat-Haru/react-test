@@ -1,7 +1,7 @@
 import React from 'react'
-import Side_Work_office from '../components/Side-Work-office';
+import Side_Work_office from '../../components/Sidebar';
 
-const RoomBook = () => {
+const Income = () => {
     return (
         <div className="flex">
             <Side_Work_office />
@@ -12,4 +12,4 @@ const RoomBook = () => {
     )
 }
 
-export default RoomBook
+export default Income

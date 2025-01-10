@@ -1,5 +1,5 @@
 import React from 'react'
-import Side_Work_office from '../components/Side-Work-office';
+import Side_Work_office from '../../components/Sidebar';
 
 const Payroll = () => {
     return (

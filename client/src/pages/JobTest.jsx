@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { User2, X } from 'lucide-react';
 import pooh from '../assets/pooh.jpg';
-import Side_Work_office from '../components/Side-Work-office';
+import Side_Work_office from '../components/Sidebar';
 
 const CandidateModal = ({ isOpen, onClose, candidate }) => {
   const modalRef = useRef(null);

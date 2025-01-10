@@ -1,10 +1,10 @@
 import React from 'react'
-import Side_Work_office from '../components/Side-Work-office';
+import Sidebar from '../../components/Sidebar';
 
-const CustomerNda = () => {
+const CarBook = () => {
     return (
         <div className="flex">
-            <Side_Work_office />
+            <Sidebar />
             <div className="ml-[250px] w-[calc(100%-250px)]">
 
             </div>
@@ -12,4 +12,4 @@ const CustomerNda = () => {
     )
 }
 
-export default CustomerNda
+export default CarBook

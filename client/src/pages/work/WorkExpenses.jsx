@@ -1,7 +1,7 @@
 import React from 'react'
-import Side_Work_office from '../components/Side-Work-office';
+import Side_Work_office from '../../components/Sidebar';
 
-export const CarBook = () => {
+const WorkExpenses = () => {
     return (
         <div className="flex">
             <Side_Work_office />
@@ -11,3 +11,5 @@ export const CarBook = () => {
         </div>
     )
 }
+
+export default WorkExpenses

@@ -1,7 +1,7 @@
 import React from 'react'
-import Side_Work_office from '../components/Side-Work-office';
+import Side_Work_office from '../../components/Sidebar';
 
-const CustomerMeet = () => {
+const Receipt = () => {
     return (
         <div className="flex">
             <Side_Work_office />
@@ -12,4 +12,4 @@ const CustomerMeet = () => {
     )
 }
 
-export default CustomerMeet
+export default Receipt
