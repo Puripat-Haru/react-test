@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { User2, X } from 'lucide-react';
 import pooh from '../assets/pooh.jpg';
-import Side_Work_office from '../components/Sidebar';
+import Sidebar from '../components/Sidebar';
 
 const CandidateModal = ({ isOpen, onClose, candidate }) => {
   const modalRef = useRef(null);
@@ -193,7 +193,7 @@ const InterviewBoard = () => {
 
   return (
     <div className="flex">
-      <Side_Work_office />
+      <Sidebar />
       <div className="ml-[250px] w-[calc(100%-250px)]">
     <div className="bg-[#b4b2af] p-8 min-h-screen flex flex-col">
       <div className="flex justify-end">

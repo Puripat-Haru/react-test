@@ -1,10 +1,10 @@
 import React from 'react'
-import Side_Work_office from '../../components/Sidebar';
+import Sidebar from '../../components/Sidebar';
 
 const Invoice = () => {
     return (
         <div className="flex">
-            <Side_Work_office />
+            <Sidebar />
             <div className="ml-[250px] w-[calc(100%-250px)]">
 
             </div>
