@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { Calendar, Search, CheckCircle, XCircle } from 'lucide-react';
 import Sidebar from '../../components/Sidebar';
 
-const LeaveTable = ({ leaves }) => {
+const LeaveTable = ({ leaves, selectedLeaveType }) => {
+  // Filter leaves based on selected type
+  const filteredLeaves = selectedLeaveType
+    ? leaves.filter(leave => leave.type === selectedLeaveType)
+    :  leaves;
   return (
     <div className="bg-gray-50 rounded-lg mt-4">
       <div className="grid grid-cols-12 py-3 px-4 bg-gray-100 rounded-t-lg sticky top-0">
@@ -12,7 +16,7 @@ const LeaveTable = ({ leaves }) => {
         <div className="col-span-2 text-gray-700">Action</div>
       </div>
       <div className="max-h-[calc(100vh-300px)] overflow-y-auto">
-        {leaves.map((leave, index) => (
+        {filteredLeaves.map((leave, index) => (
           <div key={index} className="grid grid-cols-12 py-3 px-4 border-b">
             <div className="col-span-3">{leave.name}</div>
             <div className="col-span-3">{leave.type}</div>
@@ -51,7 +55,12 @@ const Leave = () => {
     },
     {
       name: 'Firstname Lastname',
-      type: 'Private Leave',
+      type: 'Annual Leave',
+      date: '2024-02-18 - 2024-02-19'
+    },
+    {
+      name: 'Firstname Lastname',
+      type: 'Sick Leave',
       date: '2024-02-18 - 2024-02-19'
     },
     {
@@ -61,7 +70,12 @@ const Leave = () => {
     },
     {
       name: 'Firstname Lastname',
-      type: 'Private Leave',
+      type: 'Annual Leave',
+      date: '2024-02-18 - 2024-02-19'
+    },
+    {
+      name: 'Firstname Lastname',
+      type: 'Sick Leave',
       date: '2024-02-18 - 2024-02-19'
     },
     {
@@ -71,22 +85,12 @@ const Leave = () => {
     },
     {
       name: 'Firstname Lastname',
-      type: 'Private Leave',
+      type: 'Annual Leave',
       date: '2024-02-18 - 2024-02-19'
     },
     {
       name: 'Firstname Lastname',
-      type: 'Private Leave',
-      date: '2024-02-18 - 2024-02-19'
-    },
-    {
-      name: 'Firstname Lastname',
-      type: 'Private Leave',
-      date: '2024-02-18 - 2024-02-19'
-    },
-    {
-      name: 'Firstname Lastname',
-      type: 'Private Leave',
+      type: 'Sick Leave',
       date: '2024-02-18 - 2024-02-19'
     }
   ];
@@ -159,7 +163,7 @@ const Leave = () => {
           </div>
 
           {/* Leave Table */}
-          <LeaveTable leaves={leaves} />
+          <LeaveTable leaves={leaves} selectedLeaveType={selectedLeaveType} />
         </div>
       </div>
     </div>

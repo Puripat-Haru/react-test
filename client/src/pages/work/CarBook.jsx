@@ -36,6 +36,9 @@ const AddBookingModal = ({ isOpen, onClose, onAdd }) => {
     }
   };
 
+  // Check if car is selected
+  const isCarSelected = bookingData.car !== '';
+
   if (!isOpen) return null;
 
   return (
@@ -106,7 +109,12 @@ const AddBookingModal = ({ isOpen, onClose, onAdd }) => {
             </button>
             <button
               onClick={handleSubmit}
-              className="px-6 py-2 bg-blue-500 text-white rounded-lg"
+              disabled={!isCarSelected}
+              className={`px-6 py-2 rounded-lg ${
+                isCarSelected 
+                ? 'bg-blue-500 text-white' 
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              }`}
             >
               บันทึก
             </button>
@@ -176,7 +184,7 @@ const CarBook = () => {
         date: '2024-02-20 - 2024-02-20',
         time: '16:00 - 17:00',
         place: 'Place Name',
-        car: 'No.2'
+        car: 'No.3'
       },
       {
         name: 'Firstname Lastname',

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { User2, X } from 'lucide-react';
+import { User2, X, Check, XCircle, CheckCircle } from 'lucide-react';
 import pooh from '../../assets/pooh.jpg';
 import Sidebar from '../../components/Sidebar';
 
@@ -148,8 +148,67 @@ const CandidateModal = ({ isOpen, onClose, candidate }) => {
   );
 };
 
+const TrialWorkView = () => {
+  const trialEmployees = [
+    { name: 'Firstname Lastname', position: 'Job Position' },
+    { name: 'Firstname Lastname', position: 'Job Position' },
+    { name: 'Firstname Lastname', position: 'Job Position' },
+    { name: 'Firstname Lastname', position: 'Job Position' },
+    { name: 'Firstname Lastname', position: 'Job Position' },
+    { name: 'Firstname Lastname', position: 'Job Position' },
+    { name: 'Firstname Lastname', position: 'Job Position' },
+    { name: 'Firstname Lastname', position: 'Job Position' },
+    { name: 'Firstname Lastname', position: 'Job Position' },
+    { name: 'Firstname Lastname', position: 'Job Position' },
+    { name: 'Firstname Lastname', position: 'Job Position' },
+    { name: 'Firstname Lastname', position: 'Job Position' },
+    { name: 'Firstname Lastname', position: 'Job Position' },
+    { name: 'Firstname Lastname', position: 'Job Position' },
+    { name: 'Firstname Lastname', position: 'Job Position' },
+  ];
+  return (
+
+    <div className="h-[calc(107vh-12rem)] p-6">
+      <div className="bg-white rounded-lg overflow-hidden h-full flex flex-col">
+        <table className="w-full table-fixed">
+          <thead className="bg-white sticky top-0">
+            <tr className="border-b">
+              <th className="w-2/5 text-left p-4">ชื่อ</th>
+              <th className="w-2/5 text-left p-4">ตำแหน่ง</th>
+              <th className="w-1/5 text-center p-4">จัดการ</th>
+            </tr>
+          </thead>
+        </table>
+        <div className="overflow-y-auto flex-1">
+          <table className="w-full table-fixed">
+            <tbody>
+              {trialEmployees.map((employee, index) => (
+                <tr key={index} className="border-b">
+                  <td className=" w-2/5 p-4">{employee.name}</td>
+                  <td className=" w-2/5 p-4">{employee.position}</td>
+                  <td className="w-1/5 p-4">
+                    <div className="flex justify-center gap-2">
+                      <button className="p-1 hover:bg-gray-100 rounded-full">
+                        <CheckCircle className="w-5 h-5 text-black" />
+                      </button>
+                      <button className="p-1 hover:bg-gray-100 rounded-full">
+                        <XCircle className="w-5 h-5 text-black" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  );
+};
+
 const JobApp = () => {
-  
+
   const [activeTab, setActiveTab] = useState('สมัครงาน');
   const [selectedCandidate, setSelectedCandidate] = useState(null);
 
@@ -194,7 +253,7 @@ const JobApp = () => {
   ];
 
   return (
-    
+
     <div className="flex h-screen bg-[#b4b2af]">
       <Sidebar />
       <div className="flex-1 ml-64">
@@ -228,61 +287,65 @@ const JobApp = () => {
                     ทดลองงาน
                   </button>
                 </div>
-                {/* <div className="bg-gray-600 text-white px-4 py-1 rounded-full text-sm mr-4">
-              Firstname Lastname
-            </div> */}
               </div>
             </div>
 
-            {/* Board Container */}
-            <div className="max-w-7xl mx-auto p-6">
-              <div className="flex gap-6 h-[calc(100vh-12rem)]">
-                {sections.map((section, index) => (
-                  <div key={index} className="flex-1 bg-gray-50 rounded-lg overflow-hidden flex flex-col">
-                    <div className={`${section.color} py-3 text-center font-medium text-black`}>
-                      {section.title}
-                    </div>
-                    <div className="p-2 flex-1 overflow-y-auto">
-                      {section.candidates.map((candidate, idx) => (
-                        <div
-                          key={idx}
-                          className="bg-white mb-2 rounded-md shadow-sm flex items-center px-3 py-2 gap-2"
-                        >
-                          <User2 className="w-6 h-6 text-black" />
-                          <span
-                            onClick={() => setSelectedCandidate(candidate)}
-                            className="flex-1 text-sm cursor-pointer hover:bg-gray-100 px-2 py-1 rounded transition-colors text-black"
-                          >
-                            {candidate.name}
-                          </span>
-                          <button className="p-1 hover:bg-gray-100 rounded-full">
-                            <svg className="w-5 h-5 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                          </button>
-                          <button className="p-1 hover:bg-gray-100 rounded-full">
-                            <svg className="w-5 h-5 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                          </button>
+            {/* Content based on active tab */}
+            {activeTab === 'สมัครงาน' ? (
+              <>
+                {/* Board Container */}
+                <div className="max-w-7xl mx-auto p-6">
+                  <div className="flex gap-6 h-[calc(100vh-12rem)]">
+                    {sections.map((section, index) => (
+                      <div key={index} className="flex-1 bg-gray-50 rounded-lg overflow-hidden flex flex-col">
+                        <div className={`${section.color} py-3 text-center font-medium text-black`}>
+                          {section.title}
                         </div>
-                      ))}
-                    </div>
+                        <div className="p-2 flex-1 overflow-y-auto">
+                          {section.candidates.map((candidate, idx) => (
+                            <div
+                              key={idx}
+                              className="bg-white mb-2 rounded-md shadow-sm flex items-center px-3 py-2 gap-2"
+                            >
+                              <User2 className="w-6 h-6 text-black" />
+                              <span
+                                onClick={() => setSelectedCandidate(candidate)}
+                                className="flex-1 text-sm cursor-pointer hover:bg-gray-100 px-2 py-1 rounded transition-colors text-black"
+                              >
+                                {candidate.name}
+                              </span>
+                              <button className="p-1 hover:bg-gray-100 rounded-full">
+                                <svg className="w-5 h-5 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                              </button>
+                              <button className="p-1 hover:bg-gray-100 rounded-full">
+                                <svg className="w-5 h-5 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
+                </div>
 
-            <CandidateModal
-              isOpen={selectedCandidate !== null}
-              onClose={() => setSelectedCandidate(null)}
-              candidate={selectedCandidate}
-            />
+                <CandidateModal
+                  isOpen={selectedCandidate !== null}
+                  onClose={() => setSelectedCandidate(null)}
+                  candidate={selectedCandidate}
+                />
+              </>
+            ) : (
+              <TrialWorkView />
+            )}
           </div>
         </div>
       </div>
     </div>
-    
+
   );
 };
 
