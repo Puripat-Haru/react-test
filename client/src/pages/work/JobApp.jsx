@@ -217,37 +217,36 @@ const JobApp = () => {
       title: 'ผู้สมัครใหม่',
       color: 'bg-cyan-300',
       candidates: [
-        { name: 'Firstname Lastname' },
-        { name: 'Firstname Lastname' },
-        { name: 'Firstname Lastname' },
-        { name: 'Firstname Lastname' },
-        { name: 'Firstname Lastname' },
-        { name: 'Firstname Lastname' },
-        { name: 'Firstname Lastname' },
-        { name: 'Firstname Lastname' },
-        { name: 'Firstname Lastname' },
-        { name: 'Firstname Lastname' },
-        { name: 'Firstname Lastname' },
-        { name: 'Firstname Lastname' },
-        { name: 'Firstname Lastname' },
-        { name: 'Firstname Lastname' },
-        { name: 'Firstname Lastname' },
+        { name: 'Hiroshi Tanaka' },
+        { name: 'Haruto Suzuki' },
+        { name: 'Aoi Takahashi' },
+        { name: 'Mei Sato' },
+        { name: 'Riku Yamamoto' },
+        { name: 'Sakura Kobayashi' },
+        { name: 'Ren Ishikawa' },
+        { name: 'Hana Fujimoto' },
+        { name: 'Kaito Watanabe' },
+        { name: 'Natsuki Kobayashi' },
+        { name: 'Sora Matsumoto' },
+        { name: 'Rina Kato' },
+        { name: 'Yuuto Inoue' },
+        { name: 'Yume Kimura' },
       ]
     },
     {
       title: 'รอสัมภาษณ์',
       color: 'bg-yellow-300',
       candidates: [
-        { name: 'Firstname Lastname' },
-        { name: 'Firstname Lastname' },
+        { name: 'Takuya Yamada' },
+        { name: 'Emi Shimizu' },
       ]
     },
     {
       title: 'ผ่านสัมภาษณ์',
       color: 'bg-green-400',
       candidates: [
-        { name: 'Firstname Lastname' },
-        { name: 'Firstname Lastname' },
+        { name: 'Daiki Murakami' },
+        { name: 'Ayumi Okada' },
       ]
     }
   ];

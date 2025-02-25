@@ -19,6 +19,7 @@ import CustomerNda from './pages/customer/CustomerNda';
 import Income from './pages/finance/Income';
 import FinanceExpenses from './pages/finance/FinanceExpenses';
 import LoginPage from './pages/LoginPage';
+import JobAppForm from './pages/JobAppForm';
 
 console.log('App component loaded');
 
@@ -52,6 +53,7 @@ function App() {
 
             <Route path="/LoginPage" element={<LoginPage />} />
             <Route path="/" element={<Navigate to="/work/JobApp" replace />} />
+            <Route path="/JobAppForm" element={<JobAppForm />} />
           </Routes>
         </div>
       
