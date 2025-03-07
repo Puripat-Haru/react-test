@@ -94,7 +94,7 @@ const TaskColumn = ({ title, tasks }) => {
             <h3 className="text-gray-700 mb-3 text-center">{title}</h3>
             <div className="overflow-y-auto pr-2 max-h-[calc(100vh-280px)]">
                 {tasks.map((task, index) => (
-                    <TaskCard 
+                    <TaskCard
                         key={index}
                         project={task.project}
                         task={task.task}
@@ -107,6 +107,10 @@ const TaskColumn = ({ title, tasks }) => {
 };
 
 const ToDo = () => {
+
+    const user = JSON.parse(localStorage.getItem('user'));
+    const userName = user ? user.name : 'Firstname Lastname';
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [sections, setSections] = useState([
         {
@@ -171,7 +175,7 @@ const ToDo = () => {
             <Sidebar />
             <div className="flex-1 ml-64 p-5">
                 <div className="bg-gray-600 text-white px-4 py-1 rounded-full text-sm w-fit mb-4 ml-auto mr-4">
-                    Firstname Lastname
+                    {userName}
                 </div>
                 <div className="bg-gray-100  h-[calc(100vh-88px)] max-w-[1200px] mx-auto">
                     <div className="bg-[#b4b2af] shadow-sm ">
@@ -192,14 +196,14 @@ const ToDo = () => {
                     </div>
 
                     <div className="p-6">
-                        <button 
+                        <button
                             onClick={() => setIsModalOpen(true)}
                             className="mb-6 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 flex items-center gap-2"
                         >
                             <Plus className="w-5 h-5" />
                             สร้าง Task
                         </button>
-                        
+
                         <div className="flex gap-6">
                             {sections.map((section, index) => (
                                 <TaskColumn
@@ -213,7 +217,7 @@ const ToDo = () => {
                 </div>
             </div>
 
-            <TaskModal 
+            <TaskModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 onSubmit={handleAddTask}

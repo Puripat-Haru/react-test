@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 export default function JobAppForm() {
     const [formData, setFormData] = useState({
@@ -16,6 +17,7 @@ export default function JobAppForm() {
         postalCode: "",
         phone: "",
         email: "",
+        password: "",
         birthDate: "",
         age: "",
         ethnicity: "",
@@ -30,6 +32,7 @@ export default function JobAppForm() {
 
     const [image, setImage] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
+    const [emailError, setEmailError] = useState(""); // สถานะสำหรับเก็บข้อความผิดพลาดของอีเมล
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -49,8 +52,40 @@ export default function JobAppForm() {
         }
     };
 
+    // ฟังก์ชันตรวจสอบอีเมล
+    const CheckEmailExists = async (email) => {
+        try {
+            console.log("Checking email:", email); // Debg log
+            const response = await axios.get(`http://localhost:5000/api/employees?email=${email}`);
+            console.log("API Response:", response.data); // Debug log
+
+            if (response.data.length > 0) {
+                setEmailError("อีเมลนี้ถูกใช้ไปแล้ว"); // หากพบอีเมลในฐานข้อมูล
+            } else {
+                setEmailError(""); // หากไม่พบอีเมลในฐานข้อมูล
+            }
+        } catch (error) {
+            console.error("Error checking email:", error);
+            setEmailError("เกิดข้อผิดพลาดในการตรวจสอบอีเมล");
+        }
+    };
+
+    const handleEmailBlur = (e) => {
+        const email = e.target.value;
+        console.log("Email on blur:", email); // Debug log
+        if (email) {
+            CheckEmailExists(email); // ตรวจสอบอีเมลเมื่อฟิลด์อีเมลเสีย focus
+        }
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // ตรวจสอบว่าอีเมลซ้ำหรือไม่ก่อนส่งฟอร์ม
+        if (emailError) {
+            alert("กรุณาแก้ไขอีเมลก่อนส่งฟอร์ม");
+            return;
+        }
 
         const formattedBirthDate = formData.birthDate ? new Date(formData.birthDate).toISOString().split("T")[0] : "";
 
@@ -164,7 +199,7 @@ export default function JobAppForm() {
                     )}
                 </div>
 
-                {/* เบอร์โทร - อีเมล */}
+                {/* เบอร์โทร - อีเมล - รหัสผ่าน */}
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <label className="block text-gray-600">เบอร์โทรศัพท์</label>
@@ -172,7 +207,20 @@ export default function JobAppForm() {
                     </div>
                     <div>
                         <label className="block text-gray-600">อีเมล</label>
-                        <input type="email" name="email" value={formData.email} onChange={handleChange} className="w-full p-2 border rounded-lg" required />
+                        <input
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            onBlur={handleEmailBlur}
+                            className="w-full p-2 border rounded-lg"
+                            required
+                        />
+                        {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
+                    </div>
+                    <div>
+                        <label className="block text-gray-600">รหัสผ่าน</label>
+                        <input type="password" name="password" value={formData.password} onChange={handleChange} className="w-full p-2 border rounded-lg" required />
                     </div>
                 </div>
 
@@ -266,11 +314,12 @@ export default function JobAppForm() {
 
 
                 {/* ปุ่มส่ง */}
-                <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition">
+                <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition"
+                    disabled={!!emailError} // ปิดปุ่มส่งหากอีเมลซ้ำ
+                >
                     ส่งใบสมัคร
                 </button>
             </form>
         </div>
-    )
-
+    );
 }

@@ -29,13 +29,13 @@ const AddBookingModal = ({ isOpen, onClose, onAdd }) => {
   if (!isOpen) return null;
 
   return (
-    <div 
+    <div
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
       onClick={handleClickOutside}
     >
       <div className="bg-white rounded-lg p-6 w-[500px]">
         <h2 className="text-xl font-semibold mb-4">เพิ่มห้องประชุม</h2>
-        
+
         <div className="space-y-4">
           <div>
             <label className="block mb-2">ชื่อใช้ห้องประชุม</label>
@@ -43,10 +43,10 @@ const AddBookingModal = ({ isOpen, onClose, onAdd }) => {
               type="text"
               className="w-full border rounded-lg px-3 py-2"
               value={bookingData.name}
-              onChange={(e) => setBookingData({...bookingData, name: e.target.value})}
+              onChange={(e) => setBookingData({ ...bookingData, name: e.target.value })}
             />
           </div>
-          
+
           <div>
             <label className="block mb-2">วันเวลาที่จอง</label>
             <div className="flex items-center gap-2">
@@ -55,7 +55,7 @@ const AddBookingModal = ({ isOpen, onClose, onAdd }) => {
                 placeholder="start date"
                 className="flex-1 border rounded-lg px-3 py-2"
                 value={bookingData.dateRange}
-                onChange={(e) => setBookingData({...bookingData, dateRange: e.target.value})}
+                onChange={(e) => setBookingData({ ...bookingData, dateRange: e.target.value })}
               />
               <Calendar className="text-gray-400 w-5 h-5" />
             </div>
@@ -90,7 +90,7 @@ const BookingTable = ({ bookings }) => {
         <div className="text-gray-700 font-medium">Time</div>
         <div className="text-gray-700 font-medium">Action</div>
       </div>
-      
+
       <div className="max-h-[calc(100vh-300px)] overflow-y-auto">
         {bookings.map((booking, index) => (
           <div key={index} className="grid grid-cols-4 p-4 border-b border-gray-200 items-center">
@@ -113,6 +113,10 @@ const BookingTable = ({ bookings }) => {
 };
 
 const MeetingRoom = () => {
+
+  const user = JSON.parse(localStorage.getItem('user'));
+  const userName = user ? user.name : 'Firstname Lastname';
+
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -149,7 +153,7 @@ const MeetingRoom = () => {
       <div className="ml-[250px] w-[calc(100%-250px)] p-6 h-screen">
         <div className="flex justify-end mb-6">
           <div className="bg-gray-600 text-white px-6 py-2 rounded-full">
-            Firstname Lastname
+            {userName}
           </div>
         </div>
 
@@ -186,7 +190,7 @@ const MeetingRoom = () => {
               </div>
             </div>
 
-            <button 
+            <button
               className="bg-blue-500 text-white px-8 py-2 rounded-lg"
               onClick={() => setIsModalOpen(true)}
             >
@@ -199,7 +203,7 @@ const MeetingRoom = () => {
 
           <BookingTable bookings={bookings} />
 
-          <AddBookingModal 
+          <AddBookingModal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
             onAdd={handleAddBooking}

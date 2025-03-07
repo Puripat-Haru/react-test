@@ -1,5 +1,12 @@
 import express from 'express';
-import { getJobApplications, createJobApplication } from '../controllers/jobApplicationController.js';
+import { 
+    getJobApplications, 
+    createJobApplication,
+    updateJobApplicationStatus,
+    promoteToEmployee,
+    getJobApplicationsById,
+    deleteJobApplication
+} from '../controllers/jobApplicationController.js';
 import multer from 'multer';
 import path from "path";
 
@@ -18,7 +25,10 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.get('/', getJobApplications);
+router.get('/:id', getJobApplicationsById);
 router.post('/', upload.single("image"), createJobApplication);
-
+router.put('/:id/status',updateJobApplicationStatus);
+router.post('/:id/promote', promoteToEmployee);
+router.delete('/:id', deleteJobApplication);
 
 export default router;

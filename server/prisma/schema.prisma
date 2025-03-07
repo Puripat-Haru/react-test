@@ -9,7 +9,7 @@ datasource db {
 
 model jobApplication {
   id                Int      @id @default(autoincrement())
-  applyDate       DateTime @default(now())
+  applyDate         DateTime @default(now())
   image             String?
   firstName         String
   lastName          String
@@ -29,6 +29,7 @@ model jobApplication {
   postalCode        String
   phone             String
   email             String
+  password          String
   birthDate         DateTime
   age               Int
   nationality       String
@@ -37,6 +38,9 @@ model jobApplication {
   militaryStatus    String
   maritalStatus     String
   livingStatus      String
+
+  //เพิ่มสถานะของผู้สมัคร
+  status String @default("สมัครงาน") // สถานะ: "สมัครงาน", "รอสัมภาษณ์", "ผ่านสัมภาษณ์", "ทดลองงาน"
 }
 
 model user {
@@ -45,4 +49,23 @@ model user {
   email     String   @unique(map: "User_email_key")
   password  String
   createdAt DateTime @default(now())
+}
+
+model employee {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  position  String // ตำแหน่งงาน
+  phone     String
+  createdAt DateTime @default(now())
+}
+
+model RoomBooking {
+  id        Int      @id @default(autoincrement())
+  name      String
+  date      String
+  time      String
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
 }

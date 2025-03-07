@@ -6,7 +6,7 @@ const LeaveTable = ({ leaves, selectedLeaveType }) => {
   // Filter leaves based on selected type
   const filteredLeaves = selectedLeaveType
     ? leaves.filter(leave => leave.type === selectedLeaveType)
-    :  leaves;
+    : leaves;
   return (
     <div className="bg-gray-50 rounded-lg mt-4">
       <div className="grid grid-cols-12 py-3 px-4 bg-gray-100 rounded-t-lg sticky top-0">
@@ -37,6 +37,10 @@ const LeaveTable = ({ leaves, selectedLeaveType }) => {
 };
 
 const Leave = () => {
+
+  const user = JSON.parse(localStorage.getItem('user'));
+  const userName = user ? user.name : 'Firstname Lastname';
+
   const [selectedLeaveType, setSelectedLeaveType] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -107,7 +111,7 @@ const Leave = () => {
       <div className="ml-[250px] w-[calc(100%-250px)] p-6 h-screen">
         <div className="flex justify-end mb-6">
           <div className="bg-gray-600 text-white px-4 py-1 rounded-full text-sm">
-            Firstname Lastname
+            {userName}
           </div>
         </div>
         <div className="bg-white  shadow p-6 h-[calc(100%-80px)]">

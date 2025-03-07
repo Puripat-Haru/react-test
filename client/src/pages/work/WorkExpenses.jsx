@@ -10,6 +10,10 @@ import {
 } from "../../components/ui/dialog";
 
 const WorkExpenses = () => {
+
+    const user = JSON.parse(localStorage.getItem('user'));
+    const userName = user ? user.name : 'Firstname Lastname';
+
     const [expenses, setExpenses] = useState([]);
     const [showSuccess, setShowSuccess] = useState(false);
     const [open, setOpen] = useState(false);
@@ -59,7 +63,7 @@ const WorkExpenses = () => {
             <div className="ml-[250px] w-[calc(100%-250px)]">
                 <div className="bg-[#b4b2af] p-4 flex justify-end">
                     <div className="bg-[#374151] text-white px-6 py-2 rounded-full">
-                        Firstname Lastname
+                        {userName}
                     </div>
                 </div>
                 <div className="p-6">

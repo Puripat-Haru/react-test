@@ -15,18 +15,23 @@ const LoginPage = () => {
     setError('');
 
     try {
+      // ส่ง request ไปยัง backend เพื่อล็อกอิน
       const response = await axios.post(`${API_URL}/api/login`, {
-        email, // ใช้ username field เก็บ email แทน
-        password
+        email,
+        password: password.trim(), // ลบช่องว่างข้างหน้าหรือข้างหลัง
       });
 
       if (response.data.success) {
+        // เก็บ token และข้อมูลผู้ใช้ใน localStorage
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem ('user',JSON.stringify(response.data.user));
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        
+        // Redirect ไปยังหน้า JobApp
         navigate('/work/JobApp');
       }
     } catch (error) {
+      // แสดงข้อผิดพลาดหากล็อกอินไม่สำเร็จ
       setError(error.response?.data?.message || 'เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
     }
   };
@@ -49,7 +54,8 @@ const LoginPage = () => {
               type="text" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-5 py-4 rounded-lg border border-black focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-black placeholder-white text-lg"
+              className="w-full px-5 py-4 rounded-lg border border-black focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-black placeholder-gray-400 text-lg"
+              placeholder="กรอกอีเมลของคุณ"
             />
           </div>
 
@@ -61,7 +67,8 @@ const LoginPage = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-5 py-4 rounded-lg border border-black focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-black placeholder-white text-lg"
+              className="w-full px-5 py-4 rounded-lg border border-black focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-black placeholder-gray-400 text-lg"
+              placeholder="กรอกรหัสผ่านของคุณ"
             />
           </div>
 

@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import Sidebar from '../../components/Sidebar';
 
 const WorkTime = () => {
+
+  const user = JSON.parse(localStorage.getItem('user'));
+  const userName = user ? user.name : 'Firstname Lastname';
+
   const [attendanceData] = useState([
     // ... existing data ...
     {
@@ -153,10 +157,10 @@ const WorkTime = () => {
 
   const filteredData = attendanceData.filter(employee => {
     const matchSearch = employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                       employee.position.toLowerCase().includes(searchTerm.toLowerCase());
+      employee.position.toLowerCase().includes(searchTerm.toLowerCase());
     // เปลี่ยนเงื่อนไขการกรองเป็นตามสถานะ
-    const matchStatus = filterStatus === 'ทั้งหมด' || 
-                       employee.records.some(record => record.status === filterStatus);
+    const matchStatus = filterStatus === 'ทั้งหมด' ||
+      employee.records.some(record => record.status === filterStatus);
     return matchSearch && matchStatus;
   });
 
@@ -178,7 +182,7 @@ const WorkTime = () => {
       {/* Header with username */}
       <div className="fixed top-0 right-0 p-4 z-50">
         <div className="bg-gray-600 text-white px-4 py-2 rounded-full">
-          Firstname Lastname
+          {userName}
         </div>
       </div>
 
@@ -213,21 +217,19 @@ const WorkTime = () => {
                   {statuses.map(status => (
                     <button
                       key={status}
-                      className={`px-4 py-2 rounded-lg ${
-                        filterStatus === status
+                      className={`px-4 py-2 rounded-lg ${filterStatus === status
                           ? 'bg-blue-500 text-white'
                           : 'border border-gray-300 hover:bg-gray-50'
-                      }`}
+                        }`}
                       onClick={() => setFilterStatus(status)}
                     >
                       {/* Add status color indicator */}
                       <span className="flex items-center gap-2">
                         {status !== 'ทั้งหมด' && (
-                          <span className={`w-2 h-2 rounded-full ${
-                            status === 'ปกติ' ? 'bg-green-600' :
-                            status === 'มาสาย' ? 'bg-yellow-600' :
-                            status === 'กำลังทำงาน' ? 'bg-blue-600' : ''
-                          }`}></span>
+                          <span className={`w-2 h-2 rounded-full ${status === 'ปกติ' ? 'bg-green-600' :
+                              status === 'มาสาย' ? 'bg-yellow-600' :
+                                status === 'กำลังทำงาน' ? 'bg-blue-600' : ''
+                            }`}></span>
                         )}
                         {status}
                       </span>
