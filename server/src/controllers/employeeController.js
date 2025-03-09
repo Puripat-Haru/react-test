@@ -1,4 +1,4 @@
-import prisma from '../models/prismaClient.js'; // อย่าลืมใส่ .js
+import prisma from '../models/prismaClient.js';
 
 export const getEmployees = async (req, res) => {
   try {

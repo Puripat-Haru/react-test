@@ -10,6 +10,7 @@ import authRoutes from "./src/routes/authRoutes.js";
 import userRoutes from "./src/routes/userRoutes.js";
 import jobApplicationRoutes from "./src/routes/jobApplicationRoutes.js";
 import employeeRoutes from "./src/routes/employeeRoutes.js";
+import roomBookingRoutes from "./src/routes/roomBookingRoutes.js";
 
 dotenv.config();
 console.log("DATABASE_URL:", process.env.DATABASE_URL); // ตรวจสอบค่า .env
@@ -57,6 +58,7 @@ app.use("/api", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/job-applications", jobApplicationRoutes); // ใช้ jobApplicationRoutes ที่ถูกต้อง
 app.use("/api", employeeRoutes);
+app.use("/api", roomBookingRoutes);
 
 // ให้บริการไฟล์สแตติกจากโฟลเดอร์ uploads
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));

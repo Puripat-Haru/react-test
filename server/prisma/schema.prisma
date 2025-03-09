@@ -61,11 +61,22 @@ model employee {
   createdAt DateTime @default(now())
 }
 
-model RoomBooking {
+model roomBooking {
   id        Int      @id @default(autoincrement())
   name      String
   date      String
   time      String
   createdAt DateTime @default(now())
   updateAt  DateTime @updatedAt
+}
+
+model CarBooking {
+  id        Int      @id @default(autoincrement())
+  name      String   // ชื่อผู้จอง
+  date      String   // วันที่จอง
+  time      String   // เวลาที่จอง
+  place     String   // สถานที่
+  car       String   // รถคันที่
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

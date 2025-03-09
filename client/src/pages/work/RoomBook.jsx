@@ -1,23 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search, Calendar } from 'lucide-react';
 import Sidebar from '../../components/Sidebar';
+import axios from 'axios';
 
-const AddBookingModal = ({ isOpen, onClose, onAdd }) => {
-  const [bookingData, setBookingData] = useState({
+const AddRoomBookingModal = ({ isOpen, onClose, onAdd, onEdit, isEditing, initialData }) => {
+  const [roomBookingData, setRoomBookingData] = useState(initialData || {
     name: '',
-    dateRange: ''
+    dateRange: '',
+    time: '16:00 - 17:00',
   });
 
   const handleSubmit = () => {
-    // Simulate adding a booking with time 16:00 - 17:00
-    const newBooking = {
-      name: bookingData.name,
-      date: bookingData.dateRange,
-      time: '16:00 - 17:00'
-    };
-    onAdd(newBooking);
+    if (!roomBookingData.name || !roomBookingData.dateRange || !roomBookingData.time) {
+      alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+      return;
+    }
+
+    if (isEditing) {
+      onEdit(roomBookingData); // ส่งข้อมูลที่แก้ไขไปยังฟังก์ชัน onEdit
+    } else {
+      onAdd(roomBookingData); // ส่งข้อมูลใหม่ไปยังฟังก์ชัน onAdd
+    }
+
     onClose();
-    setBookingData({ name: '', dateRange: '' });
+    setRoomBookingData({ name: '', dateRange: '', time: '16:00 - 17:00' });
   };
 
   const handleClickOutside = (e) => {
@@ -25,6 +31,13 @@ const AddBookingModal = ({ isOpen, onClose, onAdd }) => {
       onClose();
     }
   };
+
+  // เมื่อ Modal เปิด ให้ตั้งค่าข้อมูลเริ่มต้น
+  useEffect(() => {
+    if (isEditing && initialData) {
+      setRoomBookingData(initialData);
+    }
+  }, [isEditing, initialData]);
 
   if (!isOpen) return null;
 
@@ -34,7 +47,9 @@ const AddBookingModal = ({ isOpen, onClose, onAdd }) => {
       onClick={handleClickOutside}
     >
       <div className="bg-white rounded-lg p-6 w-[500px]">
-        <h2 className="text-xl font-semibold mb-4">เพิ่มห้องประชุม</h2>
+        <h2 className="text-xl font-semibold mb-4">
+          {isEditing ? 'แก้ไขห้องประชุม' : 'เพิ่มห้องประชุม'}
+        </h2>
 
         <div className="space-y-4">
           <div>
@@ -42,8 +57,8 @@ const AddBookingModal = ({ isOpen, onClose, onAdd }) => {
             <input
               type="text"
               className="w-full border rounded-lg px-3 py-2"
-              value={bookingData.name}
-              onChange={(e) => setBookingData({ ...bookingData, name: e.target.value })}
+              value={roomBookingData.name}
+              onChange={(e) => setRoomBookingData({ ...roomBookingData, name: e.target.value })}
             />
           </div>
 
@@ -54,11 +69,21 @@ const AddBookingModal = ({ isOpen, onClose, onAdd }) => {
                 type="text"
                 placeholder="start date"
                 className="flex-1 border rounded-lg px-3 py-2"
-                value={bookingData.dateRange}
-                onChange={(e) => setBookingData({ ...bookingData, dateRange: e.target.value })}
+                value={roomBookingData.dateRange}
+                onChange={(e) => setRoomBookingData({ ...roomBookingData, dateRange: e.target.value })}
               />
               <Calendar className="text-gray-400 w-5 h-5" />
             </div>
+          </div>
+
+          <div>
+            <label className="block mb-2">เวลาที่จอง</label>
+            <input
+              type="text"
+              className="w-full border rounded-lg px-3 py-2"
+              value={roomBookingData.time}
+              onChange={(e) => setRoomBookingData({ ...roomBookingData, time: e.target.value })}
+            />
           </div>
 
           <div className="flex justify-end gap-2 mt-6">
@@ -72,7 +97,7 @@ const AddBookingModal = ({ isOpen, onClose, onAdd }) => {
               onClick={handleSubmit}
               className="px-6 py-2 bg-green-500 text-white rounded-lg"
             >
-              บันทึก
+              {isEditing ? 'อัปเดต' : 'บันทึก'}
             </button>
           </div>
         </div>
@@ -81,7 +106,7 @@ const AddBookingModal = ({ isOpen, onClose, onAdd }) => {
   );
 };
 
-const BookingTable = ({ bookings }) => {
+const RoomBookingTable = ({ roomBookings, onEdit, onDelete }) => {
   return (
     <div className="bg-gray-50 rounded-lg">
       <div className="grid grid-cols-4 bg-gray-100 p-4 text-center">
@@ -92,16 +117,22 @@ const BookingTable = ({ bookings }) => {
       </div>
 
       <div className="max-h-[calc(100vh-300px)] overflow-y-auto">
-        {bookings.map((booking, index) => (
-          <div key={index} className="grid grid-cols-4 p-4 border-b border-gray-200 items-center">
-            <div className="text-center">{booking.name}</div>
-            <div className="text-center">{booking.date}</div>
-            <div className="text-center">{booking.time}</div>
+        {roomBookings.map((roomBooking) => (
+          <div key={roomBooking.id} className="grid grid-cols-4 p-4 border-b border-gray-200 items-center">
+            <div className="text-center">{roomBooking.name}</div>
+            <div className="text-center">{roomBooking.date}</div>
+            <div className="text-center">{roomBooking.time}</div>
             <div className="flex justify-center gap-2">
-              <button className="px-4 py-1 bg-blue-500 text-white rounded text-sm">
+              <button
+                onClick={() => onEdit(roomBooking.id, { name: roomBooking.name, date: roomBooking.date, time: roomBooking.time })}
+                className="px-4 py-1 bg-blue-500 text-white rounded text-sm"
+              >
                 Edit
               </button>
-              <button className="px-4 py-1 bg-red-500 text-white rounded text-sm">
+              <button
+                onClick={() => onDelete(roomBooking.id)}
+                className="px-4 py-1 bg-red-500 text-white rounded text-sm"
+              >
                 Delete
               </button>
             </div>
@@ -113,38 +144,86 @@ const BookingTable = ({ bookings }) => {
 };
 
 const MeetingRoom = () => {
-
   const user = JSON.parse(localStorage.getItem('user'));
   const userName = user ? user.name : 'Firstname Lastname';
 
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [bookings, setBookings] = useState([
-    {
-      name: 'Firstname Lastname',
-      date: '2024-02-18 - 2024-02-18',
-      time: '16:00 - 17:00'
-    },
-    {
-      name: 'Firstname Lastname',
-      date: '2024-02-19 - 2024-02-19',
-      time: '16:00 - 17:00'
-    },
-    {
-      name: 'Firstname Lastname',
-      date: '2024-02-20 - 2024-02-20',
-      time: '16:00 - 17:00'
-    },
-    {
-      name: 'Firstname Lastname',
-      date: '2024-02-21 - 2024-02-21',
-      time: '16:00 - 17:00'
-    }
-  ]);
+  const [roomBookings, setRoomBookings] = useState([]);
+  const [editingRoomBooking, setEditingRoomBooking] = useState({
+    name: '',
+    dateRange: '',
+    time: '16:00 - 17:00',
+  });
+  const [editingId, setEditingId] = useState(null);
 
-  const handleAddBooking = (newBooking) => {
-    setBookings([...bookings, newBooking]);
+  // ดึงข้อมูลการจองทั้งหมดจาก backend
+  useEffect(() => {
+    const fetchRoomBookings = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/roomBookings');
+        setRoomBookings(response.data);
+      } catch (error) {
+        console.error("Error fetching roomBookings:", error);
+      }
+    };
+
+    fetchRoomBookings();
+  }, []);
+
+  // เพิ่มการจองใหม่
+  const handleAddRoomBooking = async (newRoomBooking) => {
+    try {
+      const dataToSend = {
+        name: newRoomBooking.name,
+        date: newRoomBooking.dateRange, // เปลี่ยน dateRange เป็น date
+        time: newRoomBooking.time,
+      };
+
+      const response = await axios.post('http://localhost:5000/api/roomBookings', dataToSend);
+      setRoomBookings([...roomBookings, response.data]);
+    } catch (error) {
+      console.error("Error adding roomBooking:", error);
+      alert("เกิดข้อผิดพลาดในการเพิ่มการจอง");
+    }
+  };
+
+  // แก้ไขการจอง
+  const handleEditRoomBooking = async (updatedRoomBooking) => {
+    try {
+      const dataToSend = {
+        name: updatedRoomBooking.name,
+        date: updatedRoomBooking.dateRange, // เปลี่ยน dateRange เป็น date
+        time: updatedRoomBooking.time,
+      };
+
+      const response = await axios.put(`http://localhost:5000/api/roomBookings/${editingId}`, dataToSend);
+
+      // อัปเดต State ด้วยข้อมูลที่ได้กลับมาจาก Backend
+      const updatedRoomBookings = roomBookings.map(roomBooking =>
+        roomBooking.id === editingId ? response.data : roomBooking
+      );
+      setRoomBookings(updatedRoomBookings);
+
+      setEditingId(null); // รีเซ็ต ID ที่กำลังแก้ไข
+      setIsModalOpen(false); // ปิด Modal
+    } catch (error) {
+      console.error("Error updating roomBooking:", error);
+      alert("เกิดข้อผิดพลาดในการอัปเดตการจอง");
+    }
+  };
+
+  // ลบการจอง
+  const handleDeleteRoomBooking = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/roomBookings/${id}`);
+      const updatedRoomBookings = roomBookings.filter(roomBooking => roomBooking.id !== id);
+      setRoomBookings(updatedRoomBookings);
+    } catch (error) {
+      console.error("Error deleting roomBooking:", error);
+      alert("เกิดข้อผิดพลาดในการลบการจอง");
+    }
   };
 
   return (
@@ -201,12 +280,29 @@ const MeetingRoom = () => {
             </button>
           </div>
 
-          <BookingTable bookings={bookings} />
+          <RoomBookingTable
+            roomBookings={roomBookings}
+            onEdit={(id, roomBooking) => {
+              setEditingId(id);
+              setEditingRoomBooking({
+                ...roomBooking,
+                dateRange: roomBooking.date,
+              });
+              setIsModalOpen(true);
+            }}
+            onDelete={handleDeleteRoomBooking}
+          />
 
-          <AddBookingModal
+          <AddRoomBookingModal
             isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            onAdd={handleAddBooking}
+            onClose={() => {
+              setIsModalOpen(false);
+              setEditingId(null); // รีเซ็ต ID ที่กำลังแก้ไขเมื่อปิด Modal
+            }}
+            onAdd={handleAddRoomBooking}
+            onEdit={handleEditRoomBooking}
+            isEditing={editingId !== null} // ตรวจสอบว่ากำลังแก้ไขหรือไม่
+            initialData={editingRoomBooking} // ส่งข้อมูลที่กำลังแก้ไขไปยัง Modal
           />
         </div>
       </div>
