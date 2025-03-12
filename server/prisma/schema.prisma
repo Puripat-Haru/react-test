@@ -59,6 +59,7 @@ model employee {
   position  String // ตำแหน่งงาน
   phone     String
   createdAt DateTime @default(now())
+  attendances attendance[] // ความสัมพันธ์กับ attendance
 }
 
 model roomBooking {
@@ -79,4 +80,17 @@ model CarBooking {
   car       String   // รถคันที่
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model attendance {
+  id    Int   @id @default(autoincrement())
+  employeeId  Int // ID ของพนักงาน
+  date    String // วันที่
+  checkIn   String // เวลาเข้างาน
+  checkOut    String? // เวลาออกงาน (อาจเป็น null)
+  status    String // สถานะ (ปกติ, มาสาย, กำลังทำงาน)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  employee employee @relation(fields: [employeeId], references: [id])
 }

@@ -10,7 +10,7 @@ const Sidebar = () => {
   const menuStructure = {
     "Work Office": [
       { name: "ระบบสมัครงาน", path: "/work/JobApp" },
-      { name: "ระบบลงเวลาทำงาน", path: "/work/WorkTime" },
+      { name: "ระบบลงเวลาทำงาน", path: "/work/WorkAttendance" },
       { name: "ระบบ To do list", path: "/work/ToDo" },
       { name: "ระบบลาพนักงาน", path: "/work/Leave" },
       { name: "ระบบจองห้องประชุม", path: "/work/RoomBook" },

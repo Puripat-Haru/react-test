@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 // import หน้าต่างๆ ของคุณ
 import JobApp from './pages/work/JobApp';
-import WorkTime from './pages/work/WorkTime';
+import WorkAttendance from './pages/work/WorkAttendance';
 import ToDo from './pages/work/ToDo';
 import Leave from './pages/work/Leave';
 import RoomBook from './pages/work/RoomBook';
@@ -31,7 +31,7 @@ function App() {
           <Routes>
             {/* Route ของ work office */}
             <Route path="/work/JobApp" element={<JobApp />} />
-            <Route path="/work/WorkTime" element={<WorkTime />} />
+            <Route path="/work/WorkAttendance" element={<WorkAttendance />} />
             <Route path="/work/ToDo" element={<ToDo />} />
             <Route path="/work/Leave" element={<Leave />} />
             <Route path="/work/RoomBook" element={<RoomBook />} />
