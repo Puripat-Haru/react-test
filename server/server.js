@@ -13,6 +13,7 @@ import employeeRoutes from "./src/routes/employeeRoutes.js";
 import roomBookingRoutes from "./src/routes/roomBookingRoutes.js";
 import carBookingRoutes from "./src/routes/carBookingRoutes.js";
 import attendanceRoutes from "./src/routes/attendanceRoutes.js";
+import leaveRoutes from "./src/routes/leaveRoutes.js"
 
 dotenv.config();
 console.log("DATABASE_URL:", process.env.DATABASE_URL); // ตรวจสอบค่า .env
@@ -63,6 +64,7 @@ app.use("/api", employeeRoutes);
 app.use("/api", roomBookingRoutes);
 app.use('/api', carBookingRoutes);
 app.use('/api', attendanceRoutes);
+app.use("/api/leaves", leaveRoutes);
 
 // ให้บริการไฟล์สแตติกจากโฟลเดอร์ uploads
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));

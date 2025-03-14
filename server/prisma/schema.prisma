@@ -52,13 +52,13 @@ model user {
 }
 
 model employee {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  password  String
-  position  String // ตำแหน่งงาน
-  phone     String
-  createdAt DateTime @default(now())
+  id          Int          @id @default(autoincrement())
+  name        String
+  email       String       @unique
+  password    String
+  position    String // ตำแหน่งงาน
+  phone       String
+  createdAt   DateTime     @default(now())
   attendances attendance[] // ความสัมพันธ์กับ attendance
 }
 
@@ -73,24 +73,36 @@ model roomBooking {
 
 model CarBooking {
   id        Int      @id @default(autoincrement())
-  name      String   // ชื่อผู้จอง
-  date      String   // วันที่จอง
-  time      String   // เวลาที่จอง
-  place     String   // สถานที่
-  car       String   // รถคันที่
+  name      String // ชื่อผู้จอง
+  date      String // วันที่จอง
+  time      String // เวลาที่จอง
+  place     String // สถานที่
+  car       String // รถคันที่
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model attendance {
-  id    Int   @id @default(autoincrement())
-  employeeId  Int // ID ของพนักงาน
-  date    String // วันที่
-  checkIn   String // เวลาเข้างาน
-  checkOut    String? // เวลาออกงาน (อาจเป็น null)
-  status    String // สถานะ (ปกติ, มาสาย, กำลังทำงาน)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id         Int      @id @default(autoincrement())
+  employeeId Int // ID ของพนักงาน
+  date       String // วันที่
+  checkIn    String // เวลาเข้างาน
+  checkOut   String? // เวลาออกงาน (อาจเป็น null)
+  status     String // สถานะ (ปกติ, มาสาย, กำลังทำงาน)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   employee employee @relation(fields: [employeeId], references: [id])
+}
+
+model Leave {
+  id           Int      @id @default(autoincrement())
+  employeeName String // เก็บชื่อผู้ลาแทนการเชื่อมกับ employee
+  type         String // ประเภทการลา
+  startDate    DateTime // วันที่เริ่มลา
+  endDate      DateTime // วันที่สิ้นสุดการลา
+  details      String?
+  status       String   @default("Pending") // สถานะการลา (Pending, Approved, Rejected)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
