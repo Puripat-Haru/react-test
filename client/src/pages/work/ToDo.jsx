@@ -160,7 +160,7 @@ const ToDo = () => {
         }
     ]);
 
-    const [activeTab, setActiveTab] = useState('สมัครงาน');
+    const [activeTab, setActiveTab] = useState('รายละเอียดงาน');
 
     const handleAddTask = (newTask) => {
         setSections(prevSections => {
@@ -181,16 +181,16 @@ const ToDo = () => {
                     <div className="bg-[#b4b2af] shadow-sm ">
                         <div className="flex">
                             <button
-                                onClick={() => setActiveTab('สมัครงาน')}
-                                className={`px-8 py-3 ${activeTab === 'สมัครงาน' ? 'bg-gray-100' : 'bg-gray-200'}`}
+                                onClick={() => setActiveTab('รายละเอียดงาน')}
+                                className={`px-8 py-3 ${activeTab === 'รายละเอียดงาน' ? 'bg-gray-100' : 'bg-gray-200'}`}
                             >
-                                สมัครงาน
+                                รายละเอียดงาน
                             </button>
                             <button
-                                onClick={() => setActiveTab('ทดลองงาน')}
-                                className={`px-8 py-3 ${activeTab === 'ทดลองงาน' ? 'bg-gray-100' : 'bg-gray-200'}`}
+                                onClick={() => setActiveTab('ภาพรวมงาน')}
+                                className={`px-8 py-3 ${activeTab === 'ภาพรวมงาน' ? 'bg-gray-100' : 'bg-gray-200'}`}
                             >
-                                ทดลองงาน
+                                ภาพรวมงาน
                             </button>
                         </div>
                     </div>
